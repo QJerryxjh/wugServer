@@ -1,6 +1,8 @@
 const User = require('../db').User
 const sha1 = require("sha1")
 const xss = require("xss")
+const { create_token } = require("../utils/token")
+
 module.exports = {
   async register(ctx, next) {
     try {
@@ -98,9 +100,16 @@ module.exports = {
           msg: "登录失败，用户名或密码错误"
         }
       } else {
+        let token = create_token(user_email)
+        res[0].token = token
+        res[0].save()
         ctx.body = {
           code: 200,
-          msg: "登录成功"
+          msg: "登录成功",
+          data: {
+            token,
+            user_email
+          }
         }
       }
     } catch (err) {

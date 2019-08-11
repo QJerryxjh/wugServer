@@ -1,4 +1,5 @@
 const mongoose = require("mongoose")
+
 const Schema = mongoose.Schema
 
 const db = mongoose.connect('mongodb://localhost/noteTest', { useNewUrlParser: true }, (err) => {
