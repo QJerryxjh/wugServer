@@ -16,7 +16,7 @@ const check_token = async function(ctx, next) {
       return
     }
     try {
-      const { str } = await jwt.verify(token, TOKEN_SECRET_STR)
+      const { str = '' } = await jwt.verify(token, TOKEN_SECRET_STR)
       const res = User.find({
         user_email: str,
         token
