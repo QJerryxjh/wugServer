@@ -2,11 +2,11 @@ const User = require('../../db').User
 const sha1 = require('sha1')
 const xss = require('xss')
 const { createToken } = require('../../utils/token')
+const { PWD_SECRET_STR } = require('../../utils/config')
 
 const register = async function(ctx) {
   try {
     const { user_name = '', user_email = '', user_pwd = '' } = ctx.request.body
-    let res = await User.find({ user_email })
     const reg = /^([a-zA-Z]|[0-9])(\w|-)+@[a-zA-Z0-9]+\.([a-zA-Z]{2,4})$/
     if (user_email === '') {
       ctx.body = {
@@ -36,6 +36,7 @@ const register = async function(ctx) {
       return
     }
 
+    const res = await User.find({ user_email })
     if (res.length > 0) {
       ctx.body = {
         code: 409,
@@ -44,15 +45,17 @@ const register = async function(ctx) {
       return
     }
 
-    const user_pwd_sha = sha1(sha1(user_pwd))
+    const user_pwd_sha = sha1(sha1(user_pwd + PWD_SECRET_STR))
     const user_name_xss = xss(user_name)
     const user = new User({
       user_name: user_name_xss,
       user_email,
       user_pwd: user_pwd_sha
     })
-    res = await user.save()
-    if (res._id !== null) {
+
+    // 存数据，并返回存取结果
+    const saveRes = await user.save()
+    if (saveRes._id !== null) {
       ctx.body = {
         code: 200,
         msg: '注册成功'
@@ -90,7 +93,7 @@ const login = async function(ctx) {
       return
     }
 
-    const user_pwd_sha = sha1(sha1(user_pwd))
+    const user_pwd_sha = sha1(sha1(user_pwd + PWD_SECRET_STR))
     const res = await User.find({ user_email, user_pwd: user_pwd_sha })
 
     if (res.length <= 0) {
