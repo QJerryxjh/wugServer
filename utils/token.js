@@ -2,7 +2,6 @@ const jwt = require('jsonwebtoken')
 const { TOKEN_SECRET_STR, ACCESS_URL } = require('./config')
 const { User } = require('../db')
 
-
 const createToken = function(str) {
   return jwt.sign({ str }, TOKEN_SECRET_STR)
 }
