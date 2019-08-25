@@ -7,5 +7,6 @@ router
   .post('/api/register', controller.user.register)
   .post('/api/login', controller.user.login)
   .post('/api/resetPwd', controller.user.resetPwd)
-// @@TODO 加一个验证token的api
+  .get('/api/checkToken', controller.checkoutToken)
+
 module.exports = router
