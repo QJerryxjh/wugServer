@@ -123,7 +123,60 @@ const login = async function(ctx) {
   }
 }
 
+const resetPwd = async (ctx) => {
+  try {
+    const { user_email = '', user_pwd = '' } = ctx.request.body
+
+    const reg = /^([a-zA-Z]|[0-9])(\w|-)+@[a-zA-Z0-9]+\.([a-zA-Z]{2,4})$/
+    if (user_email === '') {
+      ctx.body = {
+        code: 401,
+        msg: '邮箱为空'
+      }
+      return
+    } else if (!reg.test(user_email)) {
+      ctx.body = {
+        code: 401,
+        msg: '请输入正确的邮箱'
+      }
+      return
+    }
+
+    if (user_pwd.length < 5) {
+      ctx.body = {
+        code: 401,
+        msg: '密码位数小于5'
+      }
+      return
+    }
+
+    const res = await User.find({ user_email })
+    if (res.length <= 0) {
+      ctx.body = {
+        code: 409,
+        msg: '该邮箱未注册'
+      }
+      return
+    } else {
+      const user_pwd_sha = sha1(sha1(user_pwd + PWD_SECRET_STR))
+      res[0].user_pwd = user_pwd_sha
+      res[0].save()
+      ctx.body = {
+        code: 200,
+        msg: '修改密码成功'
+      }
+    }
+  } catch (err) {
+    console.log(err)
+    ctx.body = {
+      code: 500,
+      msg: '修改密码失败'
+    }
+  }
+}
+
 module.exports = {
   register,
-  login
+  login,
+  resetPwd
 }
