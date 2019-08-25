@@ -14,7 +14,11 @@ mongoose.connect('mongodb://localhost/noteTest', { useNewUrlParser: true }, (err
 const userSchema = new Schema({
   user_name: String,
   user_pwd: String,
-  user_email: String
+  user_email: String,
+  token: {
+    type: String,
+    default: ''
+  }
 })
 
 exports.User = mongoose.model('User', userSchema)
