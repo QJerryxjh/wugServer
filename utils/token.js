@@ -3,7 +3,7 @@ const { TOKEN_SECRET_STR, ACCESS_URL } = require('./config')
 const { User } = require('../db')
 
 const createToken = function(str) {
-  return jwt.sign({ str }, TOKEN_SECRET_STR)
+  return jwt.sign({ str }, TOKEN_SECRET_STR, { expiresIn: '24h' })
 }
 
 const check_token = async function(ctx, next) {
