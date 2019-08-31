@@ -15,6 +15,14 @@ const userSchema = new Schema({
   user_name: String,
   user_pwd: String,
   user_email: String,
+  user_gender: {
+    type: String,
+    default: 'nomale'
+  },
+  user_avatar: {
+    type: String,
+    default: 'default'
+  },
   token: {
     type: String,
     default: ''

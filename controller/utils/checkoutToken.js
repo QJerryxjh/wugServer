@@ -26,6 +26,10 @@ module.exports = {
         ctx.body = {
           code: 200,
           msg: '登录有效期',
+          user_email: res[0].user_email,
+          user_name: res[0].user_name,
+          user_gender: res[0].user_gender,
+          user_avatar: res[0].user_avatar,
           token: newToken
         }
       }
