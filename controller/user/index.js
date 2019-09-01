@@ -110,7 +110,10 @@ const login = async function(ctx) {
         msg: '登录成功',
         data: {
           token,
-          user_email
+          user_email,
+          user_name: res[0].user_name,
+          user_avatar: res[0].user_avatar,
+          user_gender: res[0].user_gender
         }
       }
     }
