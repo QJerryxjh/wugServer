@@ -113,7 +113,8 @@ const login = async function(ctx) {
           user_email,
           user_name: res[0].user_name,
           user_avatar: res[0].user_avatar,
-          user_gender: res[0].user_gender
+          user_gender: res[0].user_gender,
+          user_age: res[0].user_age
         }
       }
     }

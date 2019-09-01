@@ -30,6 +30,7 @@ module.exports = {
           user_name: res[0].user_name,
           user_gender: res[0].user_gender,
           user_avatar: res[0].user_avatar,
+          user_age: res[0].user_age,
           token: newToken
         }
       }

@@ -15,6 +15,7 @@ const userSchema = new Schema({
   user_name: String,
   user_pwd: String,
   user_email: String,
+  user_age: Number,
   user_gender: {
     type: String,
     default: 'nomale'
