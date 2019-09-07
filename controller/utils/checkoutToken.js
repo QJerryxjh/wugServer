@@ -63,11 +63,11 @@ module.exports = {
 
       const user_emailCode = (Math.random() + '').slice(-6)
       const eamil = {
-        title: 'test',
-        htmlBody: '<h1>hello</h1><p>验证码为' + user_emailCode + '</p>'
+        title: 'where u go 邮箱验证服务',
+        htmlBody: '<h1>hello, 感谢使用where u go邮箱验证</h1><p>此次服务验证码为<span style="padding-left: 5px; color: #1E90FF">' + user_emailCode + '</span></p>'
       }
       const mailOption = {
-        from: 'where u go 邮箱验证服务<844782417@qq.com>',
+        from: '邮箱验证<qjerryxjh@163.com>',
         to: user_email,
         subject: eamil.title,
         html: eamil.htmlBody
@@ -81,7 +81,6 @@ module.exports = {
           status: false
         })
         const saveRes = await user.save()
-        console.log(saveRes)
         if (saveRes._id === null) {
           ctx.body = {
             code: 500,
