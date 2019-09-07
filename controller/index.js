@@ -1,7 +1,8 @@
 const user = require('./user')
-const { checkoutToken } = require('./utils/checkoutToken')
+const { checkoutToken, getEmailCode } = require('./utils/checkoutToken')
 
 module.exports = {
   user,
-  checkoutToken
+  checkoutToken,
+  getEmailCode
 }
